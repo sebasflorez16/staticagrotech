@@ -1,4 +1,5 @@
-const BASE_URL = window.ApiUrls ? window.ApiUrls.auth() : `${window.location.origin}/api/authentication`;
+// Configuración de la URL base del backend usando ApiUrls
+const BASE_URL = window.ApiUrls ? window.ApiUrls.auth() : "https://agrotechcolombia.com/api/authentication";
 
 console.log("BASE_URL:", BASE_URL);
 console.log("axios:", typeof axios !== "undefined" ? "disponible" : "no disponible");
@@ -23,7 +24,7 @@ export async function login(username, password) {
         localStorage.setItem("accessToken", access);
         localStorage.setItem("refreshToken", refresh);
 
-        // Redirigir al dashboard
+        // Redirigir al dashboard en el frontend estático
         window.location.href = "/templates/vertical_base.html";
 
     } catch (error) {

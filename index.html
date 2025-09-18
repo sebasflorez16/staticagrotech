@@ -327,6 +327,7 @@
             <p>Monitorea tus cultivos con análisis NDVI, estrés hídrico y pronósticos meteorológicos precisos</p>
             <div class="hero-buttons">
                 <a href="#" class="btn-primary" onclick="redirectToLogin()">Acceder a la Plataforma</a>
+                <a href="/templates/vertical_base.html" class="btn-secondary">Dashboard</a>
                 <a href="#api" class="btn-secondary">Ver API</a>
             </div>
         </div>
@@ -535,6 +536,36 @@ Nota: Actualiza la variable BACKEND_URL en este archivo con tu URL de Railway.</
         }
 
         /**
+         * Verifica si el usuario está logueado y ajusta la interfaz
+         */
+        function checkUserSession() {
+            const token = localStorage.getItem('accessToken');
+            const dashboardBtn = document.querySelector('a[href="/templates/vertical_base.html"]');
+            const loginBtns = document.querySelectorAll('[onclick="redirectToLogin()"]');
+            
+            if (token) {
+                // Usuario logueado - destacar el botón del dashboard
+                if (dashboardBtn) {
+                    dashboardBtn.style.background = '#17a2b8';
+                    dashboardBtn.style.border = '2px solid #17a2b8';
+                    dashboardBtn.textContent = 'Ir al Dashboard';
+                }
+                
+                // Cambiar texto de los botones de login
+                loginBtns.forEach(btn => {
+                    btn.textContent = btn.textContent.replace('Acceder a la Plataforma', 'Ya estás conectado - Ir al Login');
+                    btn.textContent = btn.textContent.replace('Iniciar Sesión', 'Gestionar Sesión');
+                });
+            } else {
+                // Usuario no logueado - estilo normal
+                if (dashboardBtn) {
+                    dashboardBtn.style.opacity = '0.7';
+                    dashboardBtn.title = 'Requiere autenticación';
+                }
+            }
+        }
+
+        /**
          * Ejemplos de uso de la API (descomenta para usar)
          */
         /*
@@ -618,6 +649,9 @@ Nota: Actualiza la variable BACKEND_URL en este archivo con tu URL de Railway.</
                 observer.observe(card);
             });
         });
+
+        // Verificar estado de sesión al cargar
+        document.addEventListener('DOMContentLoaded', checkUserSession);
     </script>
 </body>
 </html>
