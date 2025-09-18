@@ -6,12 +6,12 @@ console.log("axios:", typeof axios !== "undefined" ? "disponible" : "no disponib
 // 🔹 Función de Login (Exportada)
 export function login() {
     // Redirige directamente al formulario de login del backend
-    window.location.href = "https://agrotechcolombia.com/templates/authentication/login.html";
+    window.location.href = "/authentication/login/";
 }
 
 // 🔹 Función de Logout (Exportada)
 export function logout() {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
-    window.location.href = "/templates/authentication/login.html";
+    window.location.href = "/authentication/login/";
 }
